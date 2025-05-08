@@ -11,6 +11,15 @@ static double SPEED = 50;          // do not change
 static double distanceTune = 3400; // how far it moves per cm
 static double angleTune = 600.0;   // how much it moves per degree //600
 
+enum ColourType
+{
+    RED = 1,
+    GREEN,
+    BLUE,
+    BALL,
+    BLACK_LINE
+};
+
 // struct return{ to be added
 
 void motorSet(int motorNum, double Speed)
@@ -183,7 +192,7 @@ int findPosition(int startRow, int endRow, int startColumn, int endColumn)
         sum += line[i] * (i - line.size() / 2); // adds the current value(0 or 1) * the difference between the current position and the middle of the list to a sum.
     }
 
-    int position = sum / count; // finds the average distance from the middle of each black pixel.
+    int position = (count != 0) ? (sum / count) : 999;
     // cout << count << endl;
     if (count >= lineMin && count <= lineMax)
     { // if the number of black pixels is more than x, then a black line is present.
@@ -700,6 +709,16 @@ void ending()
         hardware_exchange();
         sleep1(500);
     }
+}
+
+int getFrontPosition() { return findPosition(10, 10, 10, 310); }
+int getRightPosition() { return findPosition(10, 240, 310, 310); }
+int getLeftPosition() { return findPosition(10, 240, 10, 10); }
+int getBottomPosition() { return findPosition(230, 230, 10, 310); }
+
+void log(const std::string &message)
+{
+    std::cout << "[LOG] " << message << std::endl;
 }
 
 int main()
