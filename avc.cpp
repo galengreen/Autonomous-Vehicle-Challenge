@@ -489,9 +489,9 @@ void followLineSmoothly()
         }
         else if (frontError == 999 && rightError == 999 && leftError == 999 && bottomError == 999)
         {
-            Stop();
             cout << "No lines Detected" << endl;
-            // exit(0);
+            moveDistance(-1);
+            cout << "Moving back" << endl;
         }
         else if (frontError == 999)
         {
@@ -531,7 +531,7 @@ void follow_line_curvy(int moveStep, double angleAdjust, double angleSensitivity
         {
             Stop();
             cout << "No lines Detected" << endl;
-            exit(0);
+            // exit(0);
         }
         // if the front position is out of range, turn to correct it.
         else if (fabs(frontPosition) > angleSensitivity && fabs(frontPosition) < 150)
